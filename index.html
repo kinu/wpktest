@@ -1,0 +1,38 @@
+<body>
+<script>
+let baseUrl = window.location.origin + '/';
+let links = [];
+function add(url) {
+  let link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.as = 'wpk';
+  link.href = baseUrl + url;
+  document.body.appendChild(link);
+  links.push(link);
+}
+function addAndLoad200(url) {
+  add(url);
+  setTimeout(function(){window.location = baseUrl + url;}, 200);
+}
+function addAndLoad1sec(url) {
+  add(url);
+  setTimeout(function(){window.location = baseUrl + url;}, 1000);
+}
+function remove() {
+  for (let i = 0; i < links.length; ++i) {
+    document.body.removeChild(links[i]);
+  }
+  links = null;
+}
+</script>
+<input type="button" onclick="remove()" value="remove prefetch"><br>
+<input type="button" onclick="add('simple.wpk')" value="add prefetch">
+<input type="button" onclick="add('simple2.wpk')" value="add prefetch">
+<input type="button" onclick="addAndLoad200('simple2.wpk')" value="add prefetch and load (200msec)">
+<input type="button" onclick="addAndLoad1sec('simple2.wpk')" value="add prefetch and load (1sec)">
+<a href='simple2.wpk'>simple2.wpk</a><br>
+<input type="button" onclick="add('from_wprgo.wpk')" value="add prefetch">
+<input type="button" onclick="addAndLoad200('from_wprgo.wpk')" value="add prefetch and load (200msec)">
+<input type="button" onclick="addAndLoad1sec('from_wprgo.wpk')" value="add prefetch and load (1sec)">
+<a href='from_wprgo.wpk'>from_wprgo.wpk</a><br>
+</body>
