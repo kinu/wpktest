@@ -1,0 +1,62 @@
+<body>
+<script>
+var url = 'from_wprgo.wpk';
+let baseUrl = window.location.origin + '/';
+
+let links = [];
+function add(url) {
+  let link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.as = 'wpk';
+  link.href = baseUrl + url;
+  document.body.appendChild(link);
+  links.push(link);
+}
+
+function loadInIframe(url, times) {
+  if (times == 0)
+    return;
+  var i = document.createElement('iframe');
+  i.src = url;
+  setTimeout(function() {
+    document.getElementById('log').innerHTML += '<br>' + i.contentWindow.window.performance.getEntriesByName('first-contentful-paint')[0].startTime;
+    document.body.removeChild(i);
+    setTimeout(function() { loadInIframe(url, times - 1); }, 200);
+  }, 2000);
+  document.body.appendChild(i);
+}
+
+function loadInIframeWithPrefetch(url, prefetch, times) {
+  if (times == 0)
+    return;
+
+  add(url);
+  setTimeout(function(){
+    var i = document.createElement('iframe');
+    i.src = url;
+    setTimeout(function() {
+      document.getElementById('log').innerHTML += '<br>' + i.contentWindow.window.performance.getEntriesByName('first-contentful-paint')[0].startTime;
+      document.body.removeChild(i);
+      remove();
+      setTimeout(function() { loadInIframeWithPrefetch(url, prefetch, times - 1); }, 200);
+    }, 2000);
+    document.body.appendChild(i);
+  }, prefetch);
+}
+
+function remove() {
+  for (let i = 0; i < links.length; ++i) {
+    document.body.removeChild(links[i]);
+  }
+  links = [];
+}
+</script>
+
+<input type="button" onclick="remove()" value="remove prefetch"><br>
+<input type="button" onclick="loadInIframe('reuters_from_cdn.wpk', 10)" value="load in iframe 10 times">
+<input type="button" onclick="loadInIframeWithPrefetch('reuters_from_cdn.wpk', 200, 10)" value="load in iframe with prefetch 200 msec">
+<input type="button" onclick="loadInIframeWithPrefetch('reuters_from_cdn.wpk', 1000, 10)" value="load in iframe with prefetch 1 sec">
+<br>
+<div id="log"></div>
+</body>
+
