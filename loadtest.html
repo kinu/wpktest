@@ -21,7 +21,7 @@ function loadInIframe(url, times) {
     document.getElementById('log').innerHTML += '<br>' + i.contentWindow.window.performance.getEntriesByName('first-contentful-paint')[0].startTime;
     document.body.removeChild(i);
     setTimeout(function() { loadInIframe(url, times - 1); }, 200);
-  }, 2000);
+  }, 5000);
   document.body.appendChild(i);
 }
 
@@ -38,7 +38,7 @@ function loadInIframeWithPrefetch(url, prefetch, times) {
       document.body.removeChild(i);
       remove();
       setTimeout(function() { loadInIframeWithPrefetch(url, prefetch, times - 1); }, 200);
-    }, 2000);
+    }, 5000);
     document.body.appendChild(i);
   }, prefetch);
 }
