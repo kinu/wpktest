@@ -1,6 +1,7 @@
 <body>
 <script>
 let url = 'wapoamp.wpk';
+let aurl = 'https://www-washingtonpost-com.cdn.ampproject.org/v/s/www.washingtonpost.com/amphtml/pr/wp/2016/05/19/the-washington-post-introduces-new-progressive-web-app-experience/?usqp=mq331AQGCAEYASAB&amp_js_v=0.1';
 let baseUrl = window.location.origin + '/';
 
 let links = [];
@@ -59,10 +60,17 @@ function remove() {
 }
 </script>
 
+W:
 <input type="button" onclick="remove()" value="remove prefetch"><br>
 <input type="button" onclick="loadInIframe(url, 10)" value="load in iframe 10 times">
 <input type="button" onclick="loadInIframeWithPrefetch(url, 200, 10)" value="load in iframe with prefetch 200 msec">
 <input type="button" onclick="loadInIframeWithPrefetch(url, 1000, 10)" value="load in iframe with prefetch 1 sec">
+<br>
+<br>
+<br>
+
+A:
+<input type="button" onclick="loadInIframe(aurl, 10)" value="load in iframe 10 times">
 <br>
 <div id="log"></div>
 </body>
