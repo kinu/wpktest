@@ -1,6 +1,5 @@
 <body>
 <script>
-var url = 'from_wprgo.wpk';
 let baseUrl = window.location.origin + '/';
 
 let links = [];
@@ -53,9 +52,9 @@ function remove() {
 </script>
 
 <input type="button" onclick="remove()" value="remove prefetch"><br>
-<input type="button" onclick="loadInIframe('reuters_from_cdn.wpk', 10)" value="load in iframe 10 times">
-<input type="button" onclick="loadInIframeWithPrefetch('reuters_from_cdn.wpk', 200, 10)" value="load in iframe with prefetch 200 msec">
-<input type="button" onclick="loadInIframeWithPrefetch('reuters_from_cdn.wpk', 1000, 10)" value="load in iframe with prefetch 1 sec">
+<input type="button" onclick="loadInIframe('from_wprgo.wpk', 10)" value="load in iframe 10 times">
+<input type="button" onclick="loadInIframeWithPrefetch('from_wprgo.wpk', 200, 10)" value="load in iframe with prefetch 200 msec">
+<input type="button" onclick="loadInIframeWithPrefetch('from_wprgo.wpk', 1000, 10)" value="load in iframe with prefetch 1 sec">
 <br>
 <div id="log"></div>
 </body>
