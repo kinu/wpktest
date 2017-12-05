@@ -26,7 +26,7 @@ function loadInIframe(url, times) {
   var i = document.createElement('iframe');
   i.src = url;
   setTimeout(function() {
-    document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint') + ' ' + getPerf(i, 'pc')
+    document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint');
     document.body.removeChild(i);
     setTimeout(function() { loadInIframe(url, times - 1); }, 200);
   }, 5000);
@@ -42,7 +42,7 @@ function loadInIframeWithPrefetch(url, prefetch, times) {
     var i = document.createElement('iframe');
     i.src = url;
     setTimeout(function() {
-      document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint') + ' ' + getPerf(i, 'pc');
+      document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint');
       document.body.removeChild(i);
       remove();
       setTimeout(function() { loadInIframeWithPrefetch(url, prefetch, times - 1); }, 200);
