@@ -1,0 +1,77 @@
+<body>
+<script>
+let url = 'from_wprgo.wpk';
+let aurl = 'https://mobile-reuters-com.cdn.ampproject.org/v/mobile.reuters.com/article/amp/idUSKBN1CW2YC?amp_js_v=0.1';
+let baseUrl = window.location.origin + '/';
+
+let links = [];
+function add(url) {
+  let link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.as = 'wpk';
+  link.href = baseUrl + url;
+  document.body.appendChild(link);
+  links.push(link);
+}
+
+function getPerf(frame, tag) {
+  let entries = frame.contentWindow.window.performance.getEntriesByName(tag);
+  if (!entries.length)
+    return 'N/A';
+  return entries[0].startTime;
+}
+
+function loadInIframe(url, times) {
+  if (times == 0)
+    return;
+  var i = document.createElement('iframe');
+  i.src = url;
+  setTimeout(function() {
+    document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint') + ' ' + getPerf(i, 'pc');
+    document.body.removeChild(i);
+    setTimeout(function() { loadInIframe(url, times - 1); }, 200);
+  }, 5000);
+  document.body.appendChild(i);
+}
+
+function loadInIframeWithPrefetch(url, prefetch, times) {
+  if (times == 0)
+    return;
+
+  add(url);
+  setTimeout(function(){
+    var i = document.createElement('iframe');
+    i.src = url;
+    setTimeout(function() {
+    document.getElementById('log').innerHTML += '<br>' + getPerf(i, 'first-contentful-paint') + ' ' + getPerf(i, 'pc');
+      document.body.removeChild(i);
+      remove();
+      setTimeout(function() { loadInIframeWithPrefetch(url, prefetch, times - 1); }, 200);
+    }, 5000);
+    document.body.appendChild(i);
+  }, prefetch);
+}
+
+function remove() {
+  for (let i = 0; i < links.length; ++i) {
+    document.body.removeChild(links[i]);
+  }
+  links = [];
+}
+</script>
+
+W:
+<input type="button" onclick="remove()" value="remove prefetch"><br>
+<input type="button" onclick="loadInIframe(url, 10)" value="load in iframe 10 times">
+<input type="button" onclick="loadInIframeWithPrefetch(url, 200, 10)" value="load in iframe with prefetch 200 msec">
+<input type="button" onclick="loadInIframeWithPrefetch(url, 1000, 10)" value="load in iframe with prefetch 1 sec">
+<br>
+<br>
+<br>
+
+A:
+<input type="button" onclick="loadInIframe(aurl, 10)" value="load in iframe 10 times">
+<br>
+<div id="log"></div>
+</body>
+
