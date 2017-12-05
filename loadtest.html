@@ -1,5 +1,6 @@
 <body>
 <script>
+let url = 'wapoamp.wpk';
 let baseUrl = window.location.origin + '/';
 
 let links = [];
@@ -52,9 +53,9 @@ function remove() {
 </script>
 
 <input type="button" onclick="remove()" value="remove prefetch"><br>
-<input type="button" onclick="loadInIframe('from_wprgo.wpk', 10)" value="load in iframe 10 times">
-<input type="button" onclick="loadInIframeWithPrefetch('from_wprgo.wpk', 200, 10)" value="load in iframe with prefetch 200 msec">
-<input type="button" onclick="loadInIframeWithPrefetch('from_wprgo.wpk', 1000, 10)" value="load in iframe with prefetch 1 sec">
+<input type="button" onclick="loadInIframe(url, 10)" value="load in iframe 10 times">
+<input type="button" onclick="loadInIframeWithPrefetch(url, 200, 10)" value="load in iframe with prefetch 200 msec">
+<input type="button" onclick="loadInIframeWithPrefetch(url, 1000, 10)" value="load in iframe with prefetch 1 sec">
 <br>
 <div id="log"></div>
 </body>
