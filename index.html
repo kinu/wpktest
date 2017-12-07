@@ -1,6 +1,11 @@
 <body>
 <script>
-let baseUrl = window.location.origin + '/';
+let path = window.location.pathname;
+let baseUrl = window.location;
+if (path[path.length-1] != '/') {
+  let patharray = path.split('/');
+  baseUrl = window.location.origin + '/' + patharray.slice(0, patharray.length - 1).join('/') + '/';
+}
 let links = [];
 function add(url) {
   let link = document.createElement('link');
