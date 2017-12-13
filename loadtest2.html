@@ -6,8 +6,7 @@ let baseUrl = window.location.origin + '/';
 
 let links = [];
 function add(url) {
-  let link = document.createElement('link');
-  link.rel = 'prefetch';
+  let link = document.createElement('link'); link.rel = 'prefetch';
   link.as = 'wpk';
   link.href = baseUrl + url;
   document.body.appendChild(link);
@@ -64,7 +63,7 @@ wapoamp2
 W:
 <input type="button" onclick="remove()" value="remove prefetch"><br>
 <input type="button" onclick="loadInIframe(url, 1)" value="load in iframe 1 times">
-<input type="button" onclick="loadInIframeWithPrefetch(url, 1000, 1)" value="load in iframe with prefetch 1 sec">
+<input type="button" onclick="loadInIframeWithPrefetch(url, 2000, 1)" value="load in iframe with prefetch 2 sec">
 <br>
 <br>
 <br>
